@@ -1,0 +1,173 @@
+.formContainer {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.formGroup {
+    margin-bottom: 15px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.formGroup input,
+.formGroup textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.formGroup textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.categoryTable th {
+    width: 25%;
+}
+
+.categoryTable td {
+    width: 25%;
+}
+
+.productTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.productTable th,
+.productTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.productTable th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.productTable tr:hover {
+    background-color: #f5f5f5;
+}
+
+.deleteButton {
+    background-color: #dc3545;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    background-color: #c82333;
+}
+
+.managementSection {
+    display: flex;
+    gap: 2rem;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.categorySection,
+.productSection {
+    flex: 1;
+}
+
+.categorySection h2,
+.productSection h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .managementSection {
+        flex-direction: column;
+    }
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+}
+
+.modalButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.editButton {
+    background-color: #ffc107;
+    color: black;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.editButton:hover {
+    background-color: #e0a800;
+}
+
+.updateButton {
+    background-color: #28a745;
+}
+
+.updateButton:hover {
+    background-color: #218838;
+}
+
+.cancelButton {
+    background-color: #6c757d;
+}
+
+.cancelButton:hover {
+    background-color: #5a6268;
+} 

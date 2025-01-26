@@ -1,86 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import { api } from '../services/api';
-import CategoryFilter from './CategoryFilter';
+import React, { useState } from 'react';
+import styles from './CategoryForm.module.css';
+import ProductUpdateModal from './ProductUpdateModal';
 
-const ProductList = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const ProductList = ({ products, onDeleteProduct, onUpdateProduct }) => {
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const loadProducts = async () => {
-    try {
-      setLoading(true);
-      const data = await api.getAllProducts();
-      setProducts(data);
-    } catch (err) {
-      setError('Failed to load products');
-    } finally {
-      setLoading(false);
-    }
-  };
+    const handleUpdateClick = (product) => {
+        setSelectedProduct(product);
+    };
 
-  const handleDelete = async (id) => {
-    try {
-      await api.deleteProduct(id);
-      setProducts(products.filter(product => product.id !== id));
-    } catch (err) {
-      setError('Failed to delete product');
-    }
-  };
+    const handleCloseModal = () => {
+        setSelectedProduct(null);
+    };
 
-  const handleCategoryFilter = async (categoryId) => {
-    try {
-      setLoading(true);
-      const data = categoryId
-        ? await api.getProductsByCategory(categoryId)
-        : await api.getAllProducts();
-      setProducts(data);
-    } catch (err) {
-      setError('Failed to filter products');
-    } finally {
-      setLoading(false);
-    }
-  };
+    return (
+        <div className={styles.formContainer}>
+            <h2>Products</h2>
+            <table className={styles.productTable}>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>SKU</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {products.map((product) => (
+                        <tr key={product.id}>
+                            <td>{product.name}</td>
+                            <td>{product.category}</td>
+                            <td>${(Number(product.price) || 0).toFixed(2)}</td>
+                            <td>{product.quantity}</td>
+                            <td>{product.sku}</td>
+                            <td>
+                                <button 
+                                    onClick={() => handleUpdateClick(product)}
+                                    className={styles.editButton}
+                                >
+                                    Edit
+                                </button>
+                                <button 
+                                    onClick={() => onDeleteProduct(product.sku)}
+                                    className={styles.deleteButton}
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
 
-  useEffect(() => {
-    loadProducts();
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-
-  return (
-    <div className="product-list">
-      <h2>Product List</h2>
-      <CategoryFilter onCategoryChange={handleCategoryFilter} />
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Category</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.name}</td>
-              <td>{product.description}</td>
-              <td>${product.price}</td>
-              <td>{product.quantity}</td>
-              <td>{product.category}</td>
-              <td>
-                <button onClick={() => handleDelete(product.id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+            {selectedProduct && (
+                <ProductUpdateModal
+                    product={selectedProduct}
+                    onClose={handleCloseModal}
+                    onUpdate={onUpdateProduct}
+                />
+            )}
+        </div>
+    );
 };
 
 export default ProductList; 
