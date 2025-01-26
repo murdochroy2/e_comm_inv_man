@@ -16,9 +16,7 @@ const CategoryList = ({ categories, onDeleteCategory }) => {
         if (selectedCategory) {
             const fetchProducts = async () => {
                 const data = await categoryService.getCategoryDetails(selectedCategory.id);
-                setProducts(data.products);
-                
-                setSelectedCategory(prev => ({ ...prev, ...data }));
+                setProducts(data.products);                
             };
             fetchProducts();
         }
