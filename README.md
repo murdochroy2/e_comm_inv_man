@@ -17,20 +17,33 @@ A Django-based inventory management system for e-commerce stores, designed to st
    python3 -m venv myenv
    source myenv/bin/activate
    ```
-2. **Install Dependencies**: Install the required dependencies listed in `requirements.txt` using pip.
+2. **Install Dependencies**: Go to the local repository directory. Install the required dependencies listed in `requirements.txt` using pip.
    ```bash
    pip install -r requirements.txt
    ```
-3. **Database Setup**: Configure the database settings in `settings.py` according to your database management system.
+3. **Database Setup**: (Optional) Configure the database settings in `settings.py` according to your database management system.
 
-4. **Create and Run Migrations**: First, create migrations for the "inventory" app using `python manage.py makemigrations inventory`. Then, execute `python manage.py migrate` to apply database migrations.
+4. **Create and Run Migrations**: Execute `python manage.py migrate` to apply database migrations.
    ```bash
-   python manage.py makemigrations inventory
+   cd ecommerce_inventory
    python manage.py migrate
    ```
 5. **Start the Server**: Launch the development server using `python manage.py runserver`.
    ```bash
    python manage.py runserver
+   ```
+6. **React Frontend Setup**: Navigate to the frontend directory and install the required dependencies.
+   ```bash
+   cd ../frontend
+   npm install
+   ```
+7. **Start the React Development Server**: Launch the React development server.
+   ```bash
+   npm start
+   ```
+8. **Navigate to the React App**: Open your web browser and go to `http://localhost:3000` to view the application.
+   ```plaintext
+   http://localhost:3000
    ```
 
 ## Project Structure
