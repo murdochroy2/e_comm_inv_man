@@ -11,7 +11,6 @@ class InventoryManager:
     @staticmethod
     def add_product(name, price, sku, category, quantity=0):
         """Add a new product to inventory"""
-        print(f"Price: {price}")
         try:
             product = Product.objects.create(
                 name=name,
