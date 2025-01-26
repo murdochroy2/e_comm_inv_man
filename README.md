@@ -1,14 +1,19 @@
 # E-commerce Inventory Management System
 
-A Django-based inventory management system for e-commerce stores, designed to streamline product management, categorization, and inventory tracking. The system features a user-friendly admin interface and a comprehensive test suite to ensure reliability.
+A Django and React-based inventory management system for e-commerce stores, designed to streamline product management, categorization, and inventory tracking. The system features a user-friendly interface and a comprehensive test suite to ensure reliability.
 
 ## Key Features
 
-- **Product Management**: Supports CRUD (Create, Read, Update, Delete) operations for efficient product lifecycle management.
+- **Product Management**: Supports CRUD operations for efficient product lifecycle management.
 - **Category Management**: Enables categorization of products for easy organization and filtering.
 - **Inventory Tracking**: Real-time monitoring of product quantities to prevent stockouts and overstocking.
-- **Admin Interface**: Intuitive interface for administrators to manage the system effectively.
-- **Comprehensive Test Suite**: Ensures the system's reliability and stability through extensive testing.
+- **Modern UI**: React-based frontend for a responsive and intuitive user experience.
+- **Comprehensive Test Suite**: Ensures the system's reliability through extensive testing.
+
+## Prerequisites
+
+- **Python**: Ensure Python 3.x is installed on your system. You can download it from [python.org](https://www.python.org/downloads/).
+- **Node.js**: Ensure Node.js version 14.x or higher is installed on your system to run React 19. You can download it from [nodejs.org](https://nodejs.org/).
 
 ## Setup Instructions
 
@@ -41,7 +46,7 @@ A Django-based inventory management system for e-commerce stores, designed to st
    ```bash
    npm start
    ```
-8. **Navigate to the React App**: Open your web browser and go to `http://localhost:3000` to view the application.
+8. **Navigate to the React App**: Open your web browser and go to `http://localhost:3000` to access the application.
    ```plaintext
    http://localhost:3000
    ```
@@ -49,26 +54,47 @@ A Django-based inventory management system for e-commerce stores, designed to st
 ## Project Structure
 
 ```
-ecommerce_inventory/
-    ├── inventory/                # Main app for inventory management
-    │   ├── migrations/           # Database migrations
-    │   ├── __init__.py           # Package marker
-    │   ├── admin.py              # Admin interface configuration
-    │   ├── apps.py               # App configuration
-    │   ├── models.py             # Database models
-    │   ├── tests.py              # Test cases
-    │   ├── views.py              # Views for handling requests
-    │   └── services.py           # Business logic and services
-    │
-    ├── ecommerce_inventory/       # Project settings
-    │   ├── __init__.py           # Package marker
-    │   ├── settings.py            # Project settings
-    │   ├── urls.py                # URL routing
-    │   └── wsgi.py                # WSGI application
-    │
-    ├── manage.py                  # Command-line utility for administrative tasks
-    ├── requirements.txt           # Project dependencies
-    └── README.md                  # Project documentation
+project_root/
+├── ecommerce_inventory/ # Backend Django project
+│ ├── inventory/ # Main app for inventory management
+│ │ ├── migrations/ # Database migrations
+│ │ ├── init.py # Package marker
+│ │ ├── admin.py # Admin interface configuration
+│ │ ├── apps.py # App configuration
+│ │ ├── models.py # Database models
+│ │ ├── tests.py # Test cases
+│ │ ├── views.py # Views for handling requests
+│ │ └── services.py # Business logic and services
+│ │
+│ ├── ecommerce_inventory/ # Project settings
+│ │ ├── init.py # Package marker
+│ │ ├── settings.py # Project settings
+│ │ ├── urls.py # URL routing
+│ │ └── wsgi.py # WSGI application
+│ │
+│ └── manage.py # Django command-line utility
+│
+├── frontend/ # React frontend application
+│ ├── public/ # Static files
+│ ├── src/ # Source code
+│ │ ├── components/ # React components
+│ │ │ ├── CategoryForm.js # Category creation form
+│ │ │ ├── CategoryList.js # Category listing
+│ │ │ ├── ProductForm.js # Product creation form
+│ │ │ ├── ProductList.js # Product listing
+│ │ │ ├── ProductUpdateModal.js # Product update modal
+│ │ │ ├── ProductManagement.js # Product management wrapper
+│ │ │ └── InventoryManagement.js# Main inventory component
+│ │ ├── services/ # API services
+│ │ │ └── api.js # API integration
+│ │ ├── App.js # Root component
+│ │ └── index.js # Entry point
+│ │
+│ ├── package.json # NPM dependencies
+│ └── README.md # Frontend documentation
+│
+├── requirements.txt # Python dependencies
+└── README.md # Project documentation              # Project documentation
 ```
 
 ## Decision Log
