@@ -25,7 +25,7 @@ const ProductForm = ({ categories, onProductAdded }) => {
             const productData = {
                 ...formData,
                 price: parseFloat(formData.price),
-                stock: parseInt(formData.stock),
+                quantity: parseInt(formData.stock),
                 category: categories.find(cat => cat.id === parseInt(formData.category))?.name
             };
             

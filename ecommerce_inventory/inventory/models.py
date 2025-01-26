@@ -30,7 +30,7 @@ class Product(models.Model):
     """
     sku = models.CharField(max_length=100, unique=True, verbose_name="SKU")
     name = models.CharField(max_length=200)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.FloatField()
     category = models.ForeignKey(
         Category,
         related_name='products',
