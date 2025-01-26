@@ -46,6 +46,19 @@ export const categoryService = {
             console.error('Error deleting category:', error);
             throw error;
         }
+    },
+
+    getCategoryDetails: async (categoryId) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/categories/${categoryId}/`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching category details:', error);
+            throw error;
+        }
     }
 };
 

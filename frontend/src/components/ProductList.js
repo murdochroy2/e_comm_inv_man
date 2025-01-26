@@ -23,6 +23,7 @@ const ProductList = ({ products, onDeleteProduct, onUpdateProduct }) => {
                         <th>Category</th>
                         <th>Price</th>
                         <th>Stock</th>
+                        <th>SKU</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -33,6 +34,7 @@ const ProductList = ({ products, onDeleteProduct, onUpdateProduct }) => {
                             <td>{product.category}</td>
                             <td>${(Number(product.price) || 0).toFixed(2)}</td>
                             <td>{product.quantity}</td>
+                            <td>{product.sku}</td>
                             <td>
                                 <button 
                                     onClick={() => handleUpdateClick(product)}

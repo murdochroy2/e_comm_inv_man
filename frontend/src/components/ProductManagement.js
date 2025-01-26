@@ -26,7 +26,7 @@ const ProductManagement = ({ categories }) => {
     const handleDeleteProduct = async (productId) => {
         try {
             await productService.deleteProduct(productId);
-            setProducts(products.filter(prod => prod.id !== productId));
+            setProducts(products.filter(prod => prod.sku !== productId));
         } catch (error) {
             alert('Error deleting product');
         }
@@ -36,7 +36,7 @@ const ProductManagement = ({ categories }) => {
         try {
             const updatedProduct = await productService.updateProduct(productId, updateData);
             setProducts(products.map(prod => 
-                prod.id === productId ? updatedProduct : prod
+                prod.sku === productId ? updatedProduct : prod
             ));
         } catch (error) {
             alert('Error updating product');
