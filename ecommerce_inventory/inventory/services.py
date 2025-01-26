@@ -47,8 +47,36 @@ class InventoryManager:
         return Product.objects.all()
 
     @staticmethod
-    def update_product_quantity(sku, quantity):
-        """Update product quantity"""
+    def update_product(sku, quantity=None, price=None):
+        """Update product quantity and/or price using strategy pattern"""
         product = InventoryManager.get_product(sku)
-        product.update_quantity(quantity)
+        
+        if quantity is not None:
+            quantity_strategy = UpdateQuantityStrategy()
+            quantity_strategy.update(product, quantity)
+        
+        if price is not None:
+            price_strategy = UpdatePriceStrategy()
+            price_strategy.update(product, price)
+        
         return product 
+
+
+class UpdateStrategy:
+    """Interface for update strategies."""
+    def update(self, product, value):
+        raise NotImplementedError("Update method not implemented.")
+
+
+class UpdateQuantityStrategy(UpdateStrategy):
+    """Concrete strategy for updating product quantity."""
+    def update(self, product, value):
+        product.quantity = value
+        product.save()
+
+
+class UpdatePriceStrategy(UpdateStrategy):
+    """Concrete strategy for updating product price."""
+    def update(self, product, value):
+        product.price = value
+        product.save()

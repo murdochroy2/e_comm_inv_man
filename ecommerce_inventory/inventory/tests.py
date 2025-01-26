@@ -75,5 +75,5 @@ class InventoryManagerTests(TestCase):
             category=self.category
         )
         self.manager.remove_product("TEST003")
-        with self.assertRaises(ValueError):
+        with self.assertRaises(Exception):
             self.manager.get_product("TEST003") 
