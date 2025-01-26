@@ -117,3 +117,13 @@ To run the tests for the project, follow these commands:
    ```bash
    pytest
    ```
+## API Endpoints
+
+- `GET /api/categories/` - List all categories
+- `POST /api/categories/` - Create a new category
+- `GET /api/categories/<id>/` - Get category details
+- `DELETE /api/categories/<id>/` - Delete a category
+- `GET /api/products/` - List all products
+- `POST /api/products/` - Create a new product
+- `PUT /api/products/<sku>/` - Update a product
+- `DELETE /api/products/<sku>/` - Delete a product

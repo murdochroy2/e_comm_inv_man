@@ -11,6 +11,9 @@ class InventoryAPIView(APIView):
     inventory_manager = InventoryManager()
 
     def get(self, request, pk=None):
+        """
+        Retrieve a product by its primary key (pk) or all products if no pk is provided.
+        """
         if pk:
             product = self.inventory_manager.get_product(pk)
             serializer = ProductSerializer(product)
@@ -21,6 +24,9 @@ class InventoryAPIView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
+        """
+        Create a new product with the provided data.
+        """
         name = request.data.get('name')
         price = request.data.get('price')
         sku = request.data.get('sku')
@@ -36,14 +42,21 @@ class InventoryAPIView(APIView):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, pk):
+        """
+        Update an existing product identified by its primary key (pk).
+        """
         try:
             product = self.inventory_manager.get_product(pk)
             serializer = ProductSerializer(product, data=request.data, partial=True)
             
             if serializer.is_valid():
-                serializer.save()
+                data = serializer.validated_data
+                updated_product = self.inventory_manager.update_product(pk, **data)
+                serializer = ProductSerializer(updated_product)
                 return Response(serializer.data)
+            
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
             
         except Product.DoesNotExist:
             return Response(
@@ -52,6 +65,9 @@ class InventoryAPIView(APIView):
             )
 
     def delete(self, request, pk):
+        """
+        Delete a product identified by its primary key (pk).
+        """
         try:
             self.inventory_manager.remove_product(pk)
             return Response(status=status.HTTP_204_NO_CONTENT)
@@ -62,6 +78,9 @@ class InventoryStockAPIView(APIView):
     inventory_manager = InventoryManager()
 
     def post(self, request, pk):
+        """
+        Update the stock quantity of a product identified by its primary key (pk).
+        """
         product = self.inventory_manager.get_product(pk)
         quantity = request.data.get('quantity', 0)
         action = request.data.get('action')
@@ -84,12 +103,18 @@ class InventoryStockAPIView(APIView):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request, pk):
+        """
+        Retrieve the current stock quantity of a product identified by its primary key (pk).
+        """
         product = self.inventory_manager.get_product(pk)
         quantity = self.inventory_manager.check_stock(product)
         return Response({'quantity': quantity}, status=status.HTTP_200_OK)
 
 class CategoryAPIView(APIView):
     def get(self, request, pk=None):
+        """
+        Retrieve a specific category and its products by primary key (pk) or all categories if no pk is provided.
+        """
         if pk:
             # Get specific category and its products
             category = get_object_or_404(Category, pk=pk)
@@ -106,6 +131,9 @@ class CategoryAPIView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
+        """
+        Create a new category with the provided data.
+        """
         serializer = CategorySerializer(data=request.data)
         if serializer.is_valid():
             try:
@@ -119,6 +147,9 @@ class CategoryAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
+        """
+        Delete a category identified by its primary key (pk).
+        """
         category = get_object_or_404(Category, pk=pk)
         category.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
