@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './CategoryForm.module.css';
+import ProductUpdateModal from './ProductUpdateModal';
 
-const ProductList = ({ products, onDeleteProduct }) => {
+const ProductList = ({ products, onDeleteProduct, onUpdateProduct }) => {
+    const [selectedProduct, setSelectedProduct] = useState(null);
+
+    const handleUpdateClick = (product) => {
+        setSelectedProduct(product);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedProduct(null);
+    };
+
     return (
         <div className={styles.formContainer}>
             <h2>Products</h2>
@@ -19,12 +30,18 @@ const ProductList = ({ products, onDeleteProduct }) => {
                     {products.map((product) => (
                         <tr key={product.id}>
                             <td>{product.name}</td>
-                            <td>{product.category_name}</td>
-                            <td>${product.price.toFixed(2)}</td>
-                            <td>{product.stock}</td>
+                            <td>{product.category}</td>
+                            <td>${(Number(product.price) || 0).toFixed(2)}</td>
+                            <td>{product.quantity}</td>
                             <td>
                                 <button 
-                                    onClick={() => onDeleteProduct(product.id)}
+                                    onClick={() => handleUpdateClick(product)}
+                                    className={styles.editButton}
+                                >
+                                    Edit
+                                </button>
+                                <button 
+                                    onClick={() => onDeleteProduct(product.sku)}
                                     className={styles.deleteButton}
                                 >
                                     Delete
@@ -34,6 +51,14 @@ const ProductList = ({ products, onDeleteProduct }) => {
                     ))}
                 </tbody>
             </table>
+
+            {selectedProduct && (
+                <ProductUpdateModal
+                    product={selectedProduct}
+                    onClose={handleCloseModal}
+                    onUpdate={onUpdateProduct}
+                />
+            )}
         </div>
     );
 };

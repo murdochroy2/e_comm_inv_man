@@ -52,7 +52,7 @@ export const categoryService = {
 export const productService = {
     getAllProducts: async () => {
         try {
-            const response = await fetch(`${API_BASE_URL}/products/`);
+            const response = await fetch(`${API_BASE_URL}/inventory/`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -65,7 +65,7 @@ export const productService = {
 
     createProduct: async (productData) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/products/`, {
+            const response = await fetch(`${API_BASE_URL}/inventory/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ export const productService = {
 
     deleteProduct: async (productId) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/products/${productId}/`, {
+            const response = await fetch(`${API_BASE_URL}/inventory/${productId}/`, {
                 method: 'DELETE'
             });
             if (!response.ok) {
@@ -93,6 +93,25 @@ export const productService = {
             return true;
         } catch (error) {
             console.error('Error deleting product:', error);
+            throw error;
+        }
+    },
+
+    updateProduct: async (productId, updateData) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/inventory/${productId}/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updateData)
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Error updating product:', error);
             throw error;
         }
     }

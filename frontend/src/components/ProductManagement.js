@@ -32,6 +32,17 @@ const ProductManagement = ({ categories }) => {
         }
     };
 
+    const handleUpdateProduct = async (productId, updateData) => {
+        try {
+            const updatedProduct = await productService.updateProduct(productId, updateData);
+            setProducts(products.map(prod => 
+                prod.id === productId ? updatedProduct : prod
+            ));
+        } catch (error) {
+            alert('Error updating product');
+        }
+    };
+
     return (
         <div>
             <ProductForm 
@@ -41,6 +52,7 @@ const ProductManagement = ({ categories }) => {
             <ProductList 
                 products={products} 
                 onDeleteProduct={handleDeleteProduct}
+                onUpdateProduct={handleUpdateProduct}
             />
         </div>
     );

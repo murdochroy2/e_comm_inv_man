@@ -5,7 +5,7 @@ import styles from './CategoryForm.module.css';
 const ProductForm = ({ categories, onProductAdded }) => {
     const [formData, setFormData] = useState({
         name: '',
-        description: '',
+        sku: '',
         price: '',
         stock: '',
         category: ''
@@ -26,14 +26,14 @@ const ProductForm = ({ categories, onProductAdded }) => {
                 ...formData,
                 price: parseFloat(formData.price),
                 stock: parseInt(formData.stock),
-                category: parseInt(formData.category)
+                category: categories.find(cat => cat.id === parseInt(formData.category))?.name
             };
             
             const newProduct = await productService.createProduct(productData);
             onProductAdded(newProduct);
             setFormData({
                 name: '',
-                description: '',
+                sku: '',
                 price: '',
                 stock: '',
                 category: ''
@@ -59,12 +59,14 @@ const ProductForm = ({ categories, onProductAdded }) => {
                     />
                 </div>
                 <div className={styles.formGroup}>
-                    <label htmlFor="description">Description:</label>
-                    <textarea
-                        id="description"
-                        name="description"
-                        value={formData.description}
+                    <label htmlFor="sku">SKU:</label>
+                    <input
+                        type="text"
+                        id="sku"
+                        name="sku"
+                        value={formData.sku}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div className={styles.formGroup}>

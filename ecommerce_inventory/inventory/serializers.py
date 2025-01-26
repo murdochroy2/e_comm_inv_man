@@ -25,15 +25,16 @@ class ProductSerializer(serializers.ModelSerializer):
     def to_internal_value(self, data):
         # For POST/PUT requests - validate category name
         internal_value = super().to_internal_value(data)
-        category_name = internal_value['category']
+        # TODO: Remove this as this api will be called from the frontend
+        # category_name = internal_value['category']
         
-        try:
-            category = Category.objects.get(name=category_name)
-            internal_value['category'] = category
-        except Category.DoesNotExist:
-            raise serializers.ValidationError({
-                'category': f"Category '{category_name}' does not exist. Please create the category first."
-            })
+        # try:
+        #     category = Category.objects.get(name=category_name)
+        #     internal_value['category'] = category
+        # except Category.DoesNotExist:
+        #     raise serializers.ValidationError({
+        #         'category': f"Category '{category_name}' does not exist. Please create the category first."
+        #     })
 
         if internal_value['quantity'] < 0:
             raise serializers.ValidationError({
